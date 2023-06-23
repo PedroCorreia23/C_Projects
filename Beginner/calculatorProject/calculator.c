@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int numberInsert(int *ins){
     printf("How many numbers do want to insert? ");
@@ -24,12 +25,21 @@ float add(int *ins, float *arr){
       
     return sum;
 }
+float sub(int *ins, float *arr){
+
+    float subt = arr[0];  // initialize with the first element of array
+    for (int i = 1; i < *ins; i++)  
+    {
+        subt -= arr[i];
+    }
+    return subt;
+}
 
 int main(){
 
     int opcao = -1, numIn;//opcao and  amount of numbers the user want to insert;
     int *ins = &numIn; 
-    float arr[*ins];
+    float *arr;
     float sum = 0;
 
     printf("----Calculator----\n");
@@ -44,20 +54,21 @@ int main(){
         {
         case 1:
             numberInsert(ins);
+            arr = (float*) malloc(*ins * sizeof(float));  // Allocate memory for array
             askN(ins, arr);
             sum = add(ins, arr);
             printf("Total sum: %.2f\n", sum);
             break;
-        
+        case 2:
+            numberInsert(ins);
+            arr = (float*) malloc(*ins * sizeof(float));  
+            askN(ins, arr);
+            float subt = sub(ins, arr);
+            printf("Total Sub: %.2f\n", subt);
+            break;
         case 0:
             break;
         }
     }
-
-
     printf("quantidade: %d", *ins);
 }
-
-
-
-

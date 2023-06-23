@@ -4,22 +4,33 @@ int numberInsert(int *ins){
     printf("How many numbers do want to insert? ");
     scanf("%d", ins);
 }
-void askN(float *num1, float *num2){
+void askN(int *ins, float *arr){
 
-    printf("Insert N");
+
+    printf("Insert numbers: ");
+    for (int i = 0; i < *ins; i++)
+    {
+        scanf("%f", &arr[i]);
+    }
+    
 }
-float add(){
-    int a;
-    int B;
-    int C;
+float add(int *ins, float *arr){
+
+    float sum = 0;
+    for (int i = 0; i < *ins; i++)
+    {
+        sum += arr[i];
+    }
+      
+    return sum;
 }
 
 int main(){
 
     int opcao = -1, numIn;//opcao and  amount of numbers the user want to insert;
     int *ins = &numIn; 
-    float n1, n2;
-    float *num1 = &n1, *num2 = &n2;
+    float arr[*ins];
+    float sum = 0;
 
     printf("----Calculator----\n");
     
@@ -33,7 +44,9 @@ int main(){
         {
         case 1:
             numberInsert(ins);
-            add();
+            askN(ins, arr);
+            sum = add(ins, arr);
+            printf("Total sum: %.2f\n", sum);
             break;
         
         case 0:
@@ -41,7 +54,10 @@ int main(){
         }
     }
 
-    printf("quantidade: %d", *ins);
 
-    
+    printf("quantidade: %d", *ins);
 }
+
+
+
+

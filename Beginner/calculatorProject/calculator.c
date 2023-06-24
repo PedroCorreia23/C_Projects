@@ -9,9 +9,13 @@ void askN(int *count, float arr[MAX]){
     char line[50];
     *count = 0;  
 
-    printf("countert numbers (enter '#' to stop): ");
-    while (fgets(line, 50, stdin) && line[0] != '#')
+    printf("Insert numbers (enter '#' to stop insert): ");
+    while (fgets(line, 50, stdin))
     {
+        if (line[0] == '#')
+        {
+            break;
+        }
 
         if (sscanf(line, "%f", &arr[*count]) == 1)
         {
@@ -21,8 +25,7 @@ void askN(int *count, float arr[MAX]){
         else
         {
             printf("Invalid input, try again: ");
-        }
-            
+        }         
     }      
 }
 
@@ -83,6 +86,7 @@ int main(){
         printf("3. Multiplication\n4. Division\n0. Exit\n");
         printf("Choose one option: ");
         scanf("%d", &opcao);
+        while((getchar()) != '\n'); //clear buffer
         switch (opcao)
         {
         case 1:
@@ -109,8 +113,8 @@ int main(){
             break;
         }
     }
-    free(arr);
 }
+
 
 
 

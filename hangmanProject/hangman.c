@@ -16,7 +16,6 @@ const char *hangman[] = {
 " ________\n |      |\n |\n |\n |\n |\n |\n_|_\n" // Stage 0: just the gallows
 };
 
-
 void printHangman(int incorrectGuesses) {
     if (incorrectGuesses < 0 || incorrectGuesses >= sizeof(hangman) / sizeof(hangman[0])) {
         printf("Hangman image not found.\n");

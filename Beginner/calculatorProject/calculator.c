@@ -111,6 +111,9 @@ int main(){
             break;          
         case 0:
             break;
+        default:
+            printf("Invalid option. Please try again.\n");
+            break;
         }
     }
 }

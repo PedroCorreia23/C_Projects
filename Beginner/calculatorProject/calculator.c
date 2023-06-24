@@ -1,26 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #define MAX 1000
 
-void numberInsert(int *ins){
-    printf("How many numbers do want to insert? ");
-    scanf("%d", ins);
-}
-void askN(int *ins, float arr[MAX]){
+void askN(int *count, float arr[MAX]){
 
+    char line[50];
+    *count = 0;  
 
-    printf("Insert numbers: ");
-    for (int i = 0; i < *ins; i++)
+    printf("countert numbers (enter '#' to stop): ");
+    while (fgets(line, 50, stdin) && line[0] != '#')
     {
-        scanf("%f", &arr[i]);
-    }    
+
+        if (sscanf(line, "%f", &arr[*count]) == 1)
+        {
+            // increment the counter each time a valid number is entered
+            (*count)++;
+        }
+        else
+        {
+            printf("Invalid input, try again: ");
+        }
+            
+    }      
 }
 
-float add(int *ins, float arr[MAX]){
+float add(int *count, float arr[MAX]){
 
     float sum = 0;
-    for (int i = 0; i < *ins; i++)
+    for (int i = 0; i < *count; i++)
     {
         sum += arr[i];
     }
@@ -28,27 +37,27 @@ float add(int *ins, float arr[MAX]){
     return sum;
 }
 
-float sub(int *ins, float arr[MAX]){
+float sub(int *count, float arr[MAX]){
     float subt = arr[0];
-    for (int i = 1; i < *ins; i++){
+    for (int i = 1; i < *count; i++){
         subt -= arr[i];
     }
     return subt;
 }
 
-float mult(int *ins, float arr[MAX]){
+float mult(int *count, float arr[MAX]){
 
     float mul = arr[0];  // initialize with the first element of array
-    for (int i = 1; i < *ins; i++)  
+    for (int i = 1; i < *count; i++)  
     {
         mul *= arr[i];
     }
     return mul;
 }
 
-float division(int *ins, float arr[MAX]){
+float division(int *count, float arr[MAX]){
     float divi = arr[0];
-    for (int i = 1; i < *ins; i++){
+    for (int i = 1; i < *count; i++){
         if(arr[i] != 0.0) // Add a condition to prevent division by zero
             divi /= arr[i];
         else {
@@ -61,8 +70,8 @@ float division(int *ins, float arr[MAX]){
 
 int main(){
 
-    int opcao = -1, numIn;//opcao and  amount of numbers the user want to insert;
-    int *ins = &numIn; 
+    int opcao = -1, numIn;//opcao and  amount of numbers the user want to countert;
+    int *count = &numIn;
     float arr[MAX];
     float sum = 0;
 
@@ -77,27 +86,23 @@ int main(){
         switch (opcao)
         {
         case 1:
-            numberInsert(ins);
-            askN(ins, arr);
-            sum = add(ins, arr);
+            askN(count, arr);
+            sum = add(count, arr);
             printf("Total sum: %.2f\n", sum);            
             break;
-        case 2:
-            numberInsert(ins);  
-            askN(ins, arr);
-            float subt = sub(ins, arr);
+        case 2:  
+            askN(count, arr);
+            float subt = sub(count, arr);
             printf("Total Sub: %.2f\n", subt);            
             break;
         case 3:
-            numberInsert(ins);
-            askN(ins, arr);
-            float mul = mult(ins, arr);
+            askN(count, arr);
+            float mul = mult(count, arr);
             printf("Total Multiplication: %.2f\n", mul);            
             break;
         case 4:
-            numberInsert(ins);
-            askN(ins, arr);
-            float divi = division(ins, arr);
+            askN(count, arr);
+            float divi = division(count, arr);
             printf("Total Division: %.2f\n", divi);  
             break;          
         case 0:

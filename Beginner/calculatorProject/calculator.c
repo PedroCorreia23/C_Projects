@@ -24,12 +24,12 @@ void askN(int *count, float arr[MAX]){
         }
         else
         {
-            printf("Invalid input, try again: ");
+            printf("Please enter a valid number. ");
         }         
     }      
 }
 
-float add(int *count, float arr[MAX]){
+float add(int *count, float arr[MAX]){  
 
     float sum = 0;
     for (int i = 0; i < *count; i++)
@@ -77,46 +77,92 @@ int main(){
     int *count = &numIn;
     float arr[MAX];
     float sum = 0;
+    float accumulator = 0.0f; // this will hold our result between operations
+    int hasAccumulator = 0;  // this will track if we have a result to use
 
     printf("----Calculator----\n");
     
     while (opcao != 0)
     {
-        printf("1. Addition\n2. Subtraction\n");
-        printf("3. Multiplication\n4. Division\n0. Exit\n");
+        printf("1. Addition\n2. Subtraction\n3. Multiplication\n");
+        printf("4. Division\n5. Reset data\n0. Exit\n");
         printf("Choose one option: ");
         scanf("%d", &opcao);
         while((getchar()) != '\n'); //clear buffer
-        switch (opcao)
-        {
-        case 1:
-            askN(count, arr);
-            sum = add(count, arr);
-            printf("Total sum: %.2f\n", sum);            
-            break;
-        case 2:  
-            askN(count, arr);
-            float subt = sub(count, arr);
-            printf("Total Sub: %.2f\n", subt);            
-            break;
-        case 3:
-            askN(count, arr);
-            float mul = mult(count, arr);
-            printf("Total Multiplication: %.2f\n", mul);            
-            break;
-        case 4:
-            askN(count, arr);
-            float divi = division(count, arr);
-            printf("Total Division: %.2f\n", divi);  
-            break;          
-        case 0:
-            break;
-        default:
-            printf("Invalid option. Please try again.\n");
-            break;
+        switch (opcao) {
+            case 1:  // addition
+                askN(count, arr);
+                if (hasAccumulator) {
+                    // if we have a result from a previous operation, add the new total to it
+                    accumulator += add(count, arr);
+                } else {
+                    // if we don't have a result from a previous operation, just use the new total
+                    accumulator = add(count, arr);
+                    hasAccumulator = 1;
+                }
+                printf("Total sum: %.2f\n", accumulator);
+                break;
+
+            case 2:  // subtraction
+                askN(count, arr);
+                if (hasAccumulator) {
+                    accumulator -= sub(count, arr);
+                } else {
+                    accumulator = sub(count, arr);
+                    hasAccumulator = 1;
+                }
+                printf("Total Sub: %.2f\n", accumulator);
+                break;
+
+            case 3:  // multiplication
+                askN(count, arr);
+                if (hasAccumulator) {
+                    accumulator *= mult(count, arr);
+                } else {
+                    accumulator = mult(count, arr);
+                    hasAccumulator = 1;
+                }
+                printf("Total Multiplication: %.2f\n", accumulator);
+                break;
+
+            case 4:  // division
+                askN(count, arr);
+                if (hasAccumulator && accumulator != 0.0f) {
+                    accumulator /= division(count, arr);
+                } else {
+                    float divi = division(count, arr);
+                    if (divi != 0.0f) {
+                        accumulator = divi;
+                        hasAccumulator = 1;
+                    } else {
+                        printf("Error: Division by zero is not allowed!\n");
+                        accumulator = 0.0f;
+                        hasAccumulator = 0;
+                    }
+                }
+                printf("Total Division: %.2f\n", accumulator);
+                break;
+
+            case 5:  // clear accumulator
+                accumulator = 0.0f;
+                hasAccumulator = 0;
+                printf("Accumulator cleared.\n");
+                break;
+
+            case 0:  // exit
+                break;
+
+            default:
+                printf("Invalid option. Please try again.\n");
+                break;
         }
     }
 }
+
+
+
+
+
 
 
 

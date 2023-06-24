@@ -6,6 +6,36 @@
 #define NUM_CATEGORIES 6
 #define NUM_WORDS_IN_CATEGORY 3
 
+const char *hangman[] = {
+" ________\n |      |\n |      O\n |     /|\\\n |     / \\\n |\n |\n_|_\n", // Stage 6: gallows + head + body + both arms + both legs
+" ________\n |      |\n |      O\n |     /|\\\n |     /\n |\n |\n_|_\n", // Stage 5: gallows + head + body + both arms + one leg
+" ________\n |      |\n |      O\n |     /|\\\n |\n |\n |\n_|_\n", // Stage 4: gallows + head + body + both arms
+" ________\n |      |\n |      O\n |     /|\n |\n |\n |\n_|_\n", // Stage 3: gallows + head + body + one arm
+" ________\n |      |\n |      O\n |      |\n |\n |\n |\n_|_\n", // Stage 2: gallows + head + body
+" ________\n |      |\n |      O\n |\n |\n |\n |\n_|_\n", // Stage 1: gallows + head
+" ________\n |      |\n |\n |\n |\n |\n |\n_|_\n" // Stage 0: just the gallows
+};
+
+
+void printHangman(int incorrectGuesses) {
+    if (incorrectGuesses < 0 || incorrectGuesses >= sizeof(hangman) / sizeof(hangman[0])) {
+        printf("Hangman image not found.\n");
+    } else {
+        printf("%s", hangman[incorrectGuesses]);
+    }
+}
+
+void updateWord(char *chosenWord, char *revealedWord, char guess) {
+    char *p = strchr(chosenWord, guess);
+    while(p != NULL) {
+        int position = p - chosenWord;
+        revealedWord[position] = guess;
+        p = strchr(p + 1, guess);
+    }
+
+    printf("Current word: %s\n", revealedWord);
+}
+
 char* randWord(char *words[]) {
     srand(time(NULL));
     return words[rand() % NUM_WORDS_IN_CATEGORY];
@@ -28,9 +58,11 @@ void game() {
 
     char **all_categories[NUM_CATEGORIES] = {animals, countries, car_brands, colors, names, NULL};
 
-    int cat, want, lives = 3; //is as carater IS in that word
+    int cat, want, lives = 6; //is as carater IS in that word
     char word[20], c, *is;
     char *chosenWord = NULL;
+    char wrongletters[100];
+    int l = 0;
 
     printf("Press Enter to start...\n");
     waitForEnter();
@@ -55,6 +87,14 @@ void game() {
         printf("Invalid category number. Please run the program again.\n");
     }
 
+    char revealedWord[20];
+    for(int i = 0; i < strlen(chosenWord); i++) {
+        revealedWord[i] = '_';
+    }
+    revealedWord[strlen(chosenWord)] = '\0';
+
+    printf("Word choosen: %s\n", revealedWord);  // Print the chosen word (hidden)
+
     while (lives > 0)
     {
         printf("What do you want to do?\n");
@@ -68,13 +108,22 @@ void game() {
             printf("Insert caracter: ");
             scanf("%c", &c);
             is = strchr(chosenWord, c);
+            updateWord(chosenWord, revealedWord, c);
             if (is != NULL)
             {
                 printf("The letter %c is present in the word.\n", c);
             }else{
+                wrongletters[l] = c;
+                l++;
                 printf("The letter %c is NOT present in the word.\n", c);
                 lives--;
-                printf("You got now %d mores trys.\n", lives);
+                printHangman(lives);
+                printf("Wrong letters: ");
+                for (int i = 0; i < l; i++)
+                {
+                    printf("%c ", wrongletters[i]);
+                }
+                printf("\n");
             }
             break;
         case 2:
@@ -85,7 +134,8 @@ void game() {
             {
                 printf("Wrong Word!\n");
                 lives--;
-                printf("You got now %d mores trys.\n", lives);
+                printHangman(lives);
+                printf("\n");
             }
             else{
                 printf("Congratulations! You Win!");

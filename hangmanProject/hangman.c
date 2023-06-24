@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 #define NUM_CATEGORIES 6
 #define NUM_WORDS_IN_CATEGORY 3
@@ -16,6 +17,12 @@ const char *hangman[] = {
 " ________\n |      |\n |\n |\n |\n |\n |\n_|_\n" // Stage 0: just the gallows
 };
 
+void toLowerCase(char *str) {
+    for(int i = 0; str[i]; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
+
 void printHangman(int incorrectGuesses) {
     if (incorrectGuesses < 0 || incorrectGuesses >= sizeof(hangman) / sizeof(hangman[0])) {
         printf("Hangman image not found.\n");
@@ -24,11 +31,11 @@ void printHangman(int incorrectGuesses) {
     }
 }
 
-void updateWord(char *chosenWord, char *revealedWord, char guess) {
-    char *p = strchr(chosenWord, guess);
+void updateWord(char *chosenWordLower, char *chosenWord, char *revealedWord, char guess) {
+    char *p = strchr(chosenWordLower, guess);
     while(p != NULL) {
-        int position = p - chosenWord;
-        revealedWord[position] = guess;
+        int position = p - chosenWordLower;
+        revealedWord[position] = chosenWord[position];
         p = strchr(p + 1, guess);
     }
 
@@ -62,6 +69,8 @@ void game() {
     char *chosenWord = NULL;
     char wrongletters[100];
     int l = 0;
+    char chosenWordLower[20];
+
 
     printf("Press Enter to start...\n");
     waitForEnter();
@@ -82,6 +91,8 @@ void game() {
             chosenWord = randWord(all_categories[cat - 1]);
         }
         printf("Word choosen: %s\n", chosenWord);  // Print the chosen word
+        strcpy(chosenWordLower, chosenWord);  // <--- You were missing this line
+        toLowerCase(chosenWordLower);
     } else {
         printf("Invalid category number. Please run the program again.\n");
     }
@@ -106,8 +117,18 @@ void game() {
         case 1:
             printf("Insert caracter: ");
             scanf("%c", &c);
-            is = strchr(chosenWord, c);
-            updateWord(chosenWord, revealedWord, c);
+            getchar();  // Consume the '\n' character left by scanf
+            c = tolower(c);  // Convert the input character to lower case
+            is = strchr(chosenWordLower, c);
+            updateWord(chosenWordLower, chosenWord, revealedWord, c);
+            // Check if the revealed word matches the chosen word
+            char revealedWordLower[20];  // Copy of revealed word to be converted to lower case
+            strcpy(revealedWordLower, revealedWord);  // Copy the revealed word
+            toLowerCase(revealedWordLower);  // Convert revealed word to lower case for comparison
+            if (strcmp(chosenWordLower, revealedWordLower) == 0) {
+                printf("Congratulations! You guessed all the letters. You win!\n");
+                return;
+            }
             if (is != NULL)
             {
                 printf("The letter %c is present in the word.\n", c);
@@ -129,7 +150,8 @@ void game() {
             printf("Insert word: ");
             fgets(word, 20, stdin);
             word[strcspn(word, "\n")] = 0;  // Remove the newline character
-            if (strcmp(chosenWord, word) != 0)
+            toLowerCase(word);
+            if (strcmp(chosenWordLower, word) != 0)
             {
                 printf("Wrong Word!\n");
                 lives--;
@@ -160,5 +182,6 @@ int main(){
     printf("Thanks for playing :)\nBye...");
     return 0;
 }
+
 
 

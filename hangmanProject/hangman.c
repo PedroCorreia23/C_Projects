@@ -28,8 +28,8 @@ void game() {
 
     char **all_categories[NUM_CATEGORIES] = {animals, countries, car_brands, colors, names, NULL};
 
-    int cat, want, lives = 3;
-    char word[20];
+    int cat, want, lives = 3; //is as carater IS in that word
+    char word[20], c, *is;
     char *chosenWord = NULL;
 
     printf("Press Enter to start...\n");
@@ -65,7 +65,17 @@ void game() {
         switch (want)
         {
         case 1:
-            /* code */
+            printf("Insert caracter: ");
+            scanf("%c", &c);
+            is = strchr(chosenWord, c);
+            if (is != NULL)
+            {
+                printf("The letter %c is present in the word.\n", c);
+            }else{
+                printf("The letter %c is NOT present in the word.\n", c);
+                lives--;
+                printf("You got now %d mores trys.\n", lives);
+            }
             break;
         case 2:
             printf("Insert word: ");
@@ -75,6 +85,7 @@ void game() {
             {
                 printf("Wrong Word!\n");
                 lives--;
+                printf("You got now %d mores trys.\n", lives);
             }
             else{
                 printf("Congratulations! You Win!");

@@ -24,8 +24,7 @@ Steps to Run the Projects:
 4. 🚀 Run the output file
    ./<your-executable-file>
 
-✍️ Author
-That would be me, Zini!
 
+That would be me, Zini!
 
 Don't forget to replace `<your-repository-url>`, `<your-project-directory>`, and `<your-executable-file>` with your actual repository URL, project directory, and executable file name. And if you want to allow contributions, provide a link to your issues page where `<your-issues-link>` is.

@@ -71,7 +71,6 @@ void game() {
     int l = 0;
     char chosenWordLower[20];
 
-
     printf("Press Enter to start...\n");
     waitForEnter();
     
@@ -190,8 +189,6 @@ int main(){
     printf("Thanks for playing :)\nBye...");
     return 0;
 }
-
-
 
 
 

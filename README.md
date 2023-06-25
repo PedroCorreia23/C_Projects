@@ -17,14 +17,18 @@ Steps to Run the Projects:
 git clone <your-repository-url>
 ```
 2. 🗂️ Navigate to the project directory
+```
    cd <project-directory>
+```
+4. 🔨 Compile the project
+ ```
+  make
+```
 
-3. 🔨 Compile the project
-   make
-
-4. 🚀 Run the output file
+5. 🚀 Run the output file
+   ```
    ./<your-executable-file>
-
+   ```
 
 That would be me, Zini!
 

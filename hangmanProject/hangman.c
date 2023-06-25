@@ -95,7 +95,6 @@ void game() {
             } else {
                 chosenWord = randWord(all_categories[cat - 1]);
             }
-            printf("Word choosen: %s\n", chosenWord);  // Print the chosen word
             strcpy(chosenWordLower, chosenWord);  
             toLowerCase(chosenWordLower);
             break;
@@ -191,6 +190,8 @@ int main(){
     printf("Thanks for playing :)\nBye...");
     return 0;
 }
+
+
 
 
 

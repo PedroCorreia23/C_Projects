@@ -39,7 +39,7 @@ void updateWord(char *chosenWordLower, char *chosenWord, char *revealedWord, cha
         p = strchr(p + 1, guess);
     }
 
-    printf("Current word: %s\n", revealedWord);
+    printf("Current word: %s\n\n", revealedWord);
 }
 
 char* randWord(char *words[]) {
@@ -74,27 +74,34 @@ void game() {
 
     printf("Press Enter to start...\n");
     waitForEnter();
+    
+    while(1) {
+        printf("Categories:\n");
+        printf("1. Animals\n2. Countries\n3. Car Brands\n4. Colors\n5. Names\n6. Random\n");
+        printf("Choose one: ");
+        int result = scanf("%d", &cat);
+        while(getchar() != '\n');  // Consume the '\n' character left by scanf and clear the buffer
 
-    printf("Categories:\n");
-    printf("1. Animals\n2. Countries\n3. Car Brands\n4. Colors\n5. Names\n6. Random\n");
-    printf("Choose one: ");
-    scanf("%d", &cat);
-    getchar();  // Consume the '\n' character left by scanf
-
-    if (cat >= 1 && cat <= NUM_CATEGORIES) {
-        printf("\nGame started!\n\n");
-        printf("Choosing word....\n");
-        if (cat == NUM_CATEGORIES) {
-            // Random category
-            chosenWord = randWord(all_categories[rand() % (NUM_CATEGORIES - 1)]);
-        } else {
-            chosenWord = randWord(all_categories[cat - 1]);
+        if(result != 1) {
+            printf("Invalid input. Please enter a number.\n\n");
+            continue;
         }
-        printf("Word choosen: %s\n", chosenWord);  // Print the chosen word
-        strcpy(chosenWordLower, chosenWord);  // <--- You were missing this line
-        toLowerCase(chosenWordLower);
-    } else {
-        printf("Invalid category number. Please run the program again.\n");
+        if (cat >= 1 && cat <= NUM_CATEGORIES) {
+            printf("\nGame started!\n\n");
+            printf("Choosing word....\n");
+            if (cat == NUM_CATEGORIES) {
+                // Random category
+                chosenWord = randWord(all_categories[rand() % (NUM_CATEGORIES - 1)]);
+            } else {
+                chosenWord = randWord(all_categories[cat - 1]);
+            }
+            printf("Word choosen: %s\n", chosenWord);  // Print the chosen word
+            strcpy(chosenWordLower, chosenWord);  
+            toLowerCase(chosenWordLower);
+            break;
+        } else {
+            printf("Invalid category number. Please enter a number between 1 and 6.\n\n");
+        }
     }
 
     char revealedWord[20];
@@ -103,7 +110,7 @@ void game() {
     }
     revealedWord[strlen(chosenWord)] = '\0';
 
-    printf("Word choosen: %s\n", revealedWord);  // Print the chosen word (hidden)
+    printf("Word choosen: %s\n\n", revealedWord);  // Print the chosen word (hidden)
 
     while (lives > 0)
     {
@@ -117,6 +124,7 @@ void game() {
         case 1:
             printf("Insert caracter: ");
             scanf("%c", &c);
+            printf("\n");
             getchar();  // Consume the '\n' character left by scanf
             c = tolower(c);  // Convert the input character to lower case
             is = strchr(chosenWordLower, c);
@@ -131,7 +139,7 @@ void game() {
             }
             if (is != NULL)
             {
-                printf("The letter %c is present in the word.\n", c);
+                printf("The letter %c is present in the word.\n\n", c);
             }else{
                 wrongletters[l] = c;
                 l++;
@@ -159,12 +167,12 @@ void game() {
                 printf("\n");
             }
             else{
-                printf("Congratulations! You Win!");
+                printf("Congratulations! You Win!\n");
                 return;   
             }
             break;
         default:
-            printf("Invalid Option.");
+            printf("Invalid Option.\n");
             break;
         }
     }
@@ -178,10 +186,12 @@ int main(){
         game();
         printf("Do you want to play again? (Y/N): ");
         scanf(" %c", &playAgain);
+        printf("\n");
     }
     printf("Thanks for playing :)\nBye...");
     return 0;
 }
+
 
 
 

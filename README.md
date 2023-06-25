@@ -3,6 +3,7 @@ This repository is dedicated to projects built in C for learning purposes, data 
 
 🎲 Projects You Can Find Here:
 🔠 Hangman Game: Test your vocabulary with this classic hangman game, right in your console! Can you guess the word before the hangman is fully drawn?
+🧮 Basic Calculator: A simple but efficient calculator, that allows you to perform basic arithmetic operations like addition, subtraction, multiplication, and division.
 
 🚀 Getting Started
 What You'll Need

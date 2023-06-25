@@ -25,9 +25,9 @@ cd <project-directory>
  make
 ```
 5. 🚀 Run the output file
-   ```
+```
 ./<your-executable-file>
-   ```
+```
 
 That would be me, Zini!
 

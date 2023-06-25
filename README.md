@@ -13,22 +13,16 @@ What You'll Need
 Steps to Run the Projects:
 
 1. 👯‍♂️ Clone this repository to your local machine.
+   git clone <your-repository-url>
 
-2.📂 Go to the directory of the project you want to run.
+2. 🗂️ Navigate to the project directory
+   cd <project-directory>
 
-🖥️ Compile the C file. If you're using GCC, here's how you can do it:
+3. 🔨 Compile the project
+   make
 
-🔄 Clone the repository
-git clone <repository-url>
-
-🗂️ Navigate to the project directory
-cd <project-directory>
-
-🔨 Compile the project
-make
-
-🚀 Run the output file
-./<executable-file>
+4. 🚀 Run the output file
+   ./<your-executable-file>
 
 ✍️ Author
 That would be me, Zini!

@@ -11,9 +11,9 @@ void waitForEnter() {
 int main() {
     printf("Press Enter to start the game...\n");
     waitForEnter();
-    printf("Game started!\n");
+    printf("Game started!\n");  
 
-    // Rest of your game logic goes here
+    // Rest of logic goes here
 
     return 0;
 }

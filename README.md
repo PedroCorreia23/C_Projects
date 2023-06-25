@@ -18,16 +18,15 @@ git clone <your-repository-url>
 ```
 2. 🗂️ Navigate to the project directory
 ```
-   cd <project-directory>
+cd <project-directory>
 ```
 4. 🔨 Compile the project
  ```
-  make
+ make
 ```
-
 5. 🚀 Run the output file
    ```
-   ./<your-executable-file>
+./<your-executable-file>
    ```
 
 That would be me, Zini!

@@ -15,7 +15,7 @@ Steps to Run the Projects:
 1. 👯‍♂️ Clone this repository to your local machine:
 ```bash
 git clone <your-repository-url>
-
+```
 2. 🗂️ Navigate to the project directory
    cd <project-directory>
 

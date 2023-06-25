@@ -10,10 +10,11 @@ What You'll Need
 - A C compiler (If you don't have one already, GCC or Clang are both great choices!)
 - Git installed on your machine
 
-Steps to Run the Projects
-👯‍♂️ Clone this repository to your local machine.
+Steps to Run the Projects:
 
-📂 Go to the directory of the project you want to run.
+1. 👯‍♂️ Clone this repository to your local machine.
+
+2.📂 Go to the directory of the project you want to run.
 
 🖥️ Compile the C file. If you're using GCC, here's how you can do it:
 

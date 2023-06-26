@@ -1,10 +1,10 @@
 #include "structs.h"
 
-
 int main(){
 
     int option, c;
     char *filename = "students.txt";
+    char studentName[50];
 
     if (!existFile(filename)) //if file doesnt exist
     {
@@ -15,6 +15,7 @@ int main(){
     Student new_student;
 
     while(1) {
+
         printf("\n=== MENU ===\n");
         printf("1. Add Student\n2. Display All Students\n3. Search Student\n");
         printf("4. Update Stundent Information\n5. Delete a student\n6. Calculate Grades\n");
@@ -43,6 +44,13 @@ int main(){
             printf("\n====Students====\n");
             printStudents(filename);
             break;
+        case 3:
+            printf("Insert student name: ");
+            scanf(" %[^\n]s", new_student.name);
+
+            searchStudent(filename, new_student.name);
+            break;
+
         case 8:
             writeStudentsToFile(head, "students.txt");
             printf("Data saved successfully.\n");

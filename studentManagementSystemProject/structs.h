@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-
 typedef struct Student
 {
     char name[50];
@@ -21,7 +20,6 @@ typedef struct Node
     Student student;
     struct Node* next;
 } Node;
-
 
 bool existFile(const char *filename){
     
@@ -67,12 +65,11 @@ void addStudent(struct Node **head, struct Student new_student_data){
     /* 6. Change the next of last node */
     last->next = new_node;
     return;
-
 }
 
 void writeStudentsToFile(struct Node* head, const char* filename) {
     // Open the file in write mode.
-    FILE* fp = fopen(filename, "w");
+    FILE* fp = fopen(filename, "a");
 
     // If the file could not be opened, print an error message and return.
     if (fp == NULL) {
@@ -93,5 +90,22 @@ void writeStudentsToFile(struct Node* head, const char* filename) {
     }
 
     // Close the file after writing.
+    fclose(fp);
+}
+
+void printStudents(const char* filename){
+
+    int c;
+    FILE* fp = fopen(filename, "r");
+
+    if (fp == NULL) {
+        printf("Could not open file %s\n", filename);
+        return;
+    }
+
+    while ((c = getc(fp)) != EOF)
+    {
+        printf("%c", c);
+    }
     fclose(fp);
 }

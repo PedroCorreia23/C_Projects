@@ -109,3 +109,26 @@ void printStudents(const char* filename){
     }
     fclose(fp);
 }
+
+void searchStudent(const char* filename, const char *name){
+
+    char line[999];
+    FILE *fp = fopen(filename, "r");
+
+    if (fp == NULL) {
+        printf("Could not open file %s\n", filename);
+        return;
+    }
+    
+    while (fgets(line, sizeof(line), fp))
+    {
+        // Remove the newline character at the end of the line.
+        line[strcspn(line, "\n")] = '\0';
+        
+        if (strstr(line, name) != NULL)
+        {
+            printf("%s", line);
+        }
+    }
+    fclose(fp);
+}

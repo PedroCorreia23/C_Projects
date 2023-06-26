@@ -121,10 +121,7 @@ void searchStudent(const char* filename, const char *name){
     }
     
     while (fgets(line, sizeof(line), fp))
-    {
-        // Remove the newline character at the end of the line.
-        line[strcspn(line, "\n")] = '\0';
-        
+    {   
         if (strstr(line, name) != NULL)
         {
             printf("%s", line);
